@@ -9,9 +9,11 @@ android {
 
     buildFeatures{
         viewBinding true
+        buildConfig true
     }
 
     defaultConfig {
+
         applicationId "com.example.weatherapp"
         minSdk 24
         targetSdk 33
@@ -19,6 +21,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
     }
 
     buildTypes {
@@ -33,6 +40,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures{
+        buildConfig true
     }
 }
 

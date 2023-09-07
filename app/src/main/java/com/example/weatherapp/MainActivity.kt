@@ -1,9 +1,11 @@
 package com.example.weatherapp
 
+import android.content.pm.ApplicationInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import com.example.weatherapp.databinding.ActivityMainBinding
+import com.google.gson.internal.GsonBuildConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +15,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-// 183e924d31f4de1813a07603c4962f22
 class MainActivity : AppCompatActivity() {
 
     private val binding : ActivityMainBinding by lazy {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
 
         fetchWeatherData("Delhi")
 
@@ -55,7 +57,9 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .build().create(ApiInterface::class.java)
 
-        val response = retrofit.getWeatherData(cityName, "183e924d31f4de1813a07603c4962f22", "metric")
+        val apikey = BuildConfig.API_KEY
+
+        val response = retrofit.getWeatherData(cityName, apikey, "metric")
         response.enqueue(object : Callback<WeatherApp>{
             override fun onResponse(call: Call<WeatherApp>, response: Response<WeatherApp>) {
                 val responseBody = response.body()

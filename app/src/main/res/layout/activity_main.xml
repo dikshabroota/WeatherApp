@@ -79,6 +79,7 @@
         android:id="@+id/weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/merriweathersans_semibold"
         android:text="SUNNY"
         android:textAllCaps="true"
